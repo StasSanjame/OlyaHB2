@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>С Днём Рождения, Оля! 🎉</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Праздничный фон: салюты, конфетти и воздушные шарики -->
+  <canvas id="celebration-canvas" aria-hidden="true"></canvas>
+  <div id="balloons-container" aria-hidden="true"></div>
+
+  <!-- Полноэкранный оверлей Правильно / Неправильно -->
+  <div id="feedback-overlay" class="feedback-overlay" aria-live="polite">
+    <div class="feedback-box">
+      <div id="feedback-icon" class="feedback-icon"></div>
+      <div id="feedback-text" class="feedback-text">Правильно!</div>
+    </div>
+  </div>
+
+  <!-- Основной контейнер страниц -->
+  <main id="app" class="app-container">
+
+    <!-- ==================== СТРАНИЦА 1: ГЛАВНАЯ ==================== -->
+    <section class="page active" data-page="1" id="page-1">
+      <!-- Коллаж из 8 прозрачных PNG фотографий -->
+      <div class="collage-layer" aria-hidden="true">
+        <!-- Полноростовые / плавающие вырезки -->
+        <div class="sticker sticker-4">
+          <img src="img/mainPage4.png" alt="Фото 4" />
+        </div>
+        <div class="sticker sticker-8">
+          <img src="img/mainPage8.png" alt="Фото 8" />
+        </div>
+        <div class="sticker sticker-2">
+          <img src="img/mainPage2.png" alt="Фото 2" />
+        </div>
+        <div class="sticker sticker-6">
+          <img src="img/mainPage6.png" alt="Фото 6" />
+        </div>
+
+        <!-- Вырезки, привязанные к краям экрана по линии среза -->
+        <div class="sticker sticker-3">
+          <img src="img/mainPage3.png" alt="Фото 3" />
+        </div>
+        <div class="sticker sticker-5">
+          <img src="img/mainPage5.png" alt="Фото 5" />
+        </div>
+        <div class="sticker sticker-7">
+          <img src="img/mainPage7.png" alt="Фото 7" />
+        </div>
+        <div class="sticker sticker-1">
+          <img src="img/mainPage1.png" alt="Фото 1" />
+        </div>
+      </div>
+
+      <!-- Центральная открытка с поздравлением -->
+      <div class="hero-card glass-card">
+        <div class="hero-badge">🎂 ПРАЗДНИЧНЫЙ СЮРПРИЗ 🎂</div>
+        <h1 class="hero-title">С Днём Рождения, Оля!</h1>
+        <div class="hero-wishes">
+          <p>
+            Пусть каждый твой день будет наполнен искренним смехом до слёз, яркими приключениями, уютными вечерами и самыми легендарными моментами! ✨
+          </p>
+          <p>
+            Желаем тебе бесконечного вдохновения, исполнения самых смелых желаний, верных друзей рядом, топового настроения 24/7 и чтобы удача всегда была на твоей стороне! 💖🎉
+          </p>
+        </div>
+        <button class="btn btn-gift pulse-btn" onclick="goToPage(2)">
+          <span>🎁 Получить подарок</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================== СТРАНИЦА 2: ВСТУПЛЕНИЕ К ВИКТОРИНЕ ==================== -->
+    <section class="page" data-page="2" id="page-2">
+      <div class="quiz-card glass-card">
+        <div class="media-frame intro-media">
+          <img src="img/questMain.jpg" alt="Вступление к викторине" />
+        </div>
+        <div class="intro-text-block">
+          <p class="intro-lead">
+            А перед тем как забрать свой подарок, тебя ждёт легендарная праздничная викторина! 🎉
+          </p>
+          <p class="intro-sub">
+            Главное правило: <strong>внимательно и полностью читай все вопросы</strong>, много смейся и обязательно обсуждай всё вслух с нами в Дискорде! 🎙️😂
+          </p>
+        </div>
+        <div class="actions-row">
+          <button class="btn btn-primary btn-large" onclick="goToPage(3)">Начать</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== СТРАНИЦА 3: 1 ВОПРОС ==================== -->
+    <section class="page" data-page="3" id="page-3">
+      <div class="quiz-card glass-card">
+        <h2 class="page-heading">1 вопрос</h2>
+        <div class="media-frame quest1-media">
+          <img src="img/quest1.png" alt="1 вопрос" />
+        </div>
+        <p class="question-text">Играл ли Слава в наших видео женские роли?</p>
+        <div class="answers-row two-buttons">
+          <button class="btn btn-answer" onclick="handleAnswer(this, true, 4)">Да</button>
+          <button class="btn btn-answer" onclick="handleAnswer(this, false, 4)">Нет</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== СТРАНИЦА 4: ТРИ ВИДЕО ==================== -->
+    <section class="page" data-page="4" id="page-4">
+      <div class="quiz-card glass-card wide-card">
+        <div class="videos-grid">
+          <div class="video-item">
+            <div class="video-wrapper">
+              <video src="vid/1.mp4" controls playsinline preload="metadata"></video>
+            </div>
+            <p class="video-caption">Розочка, это просто самокат</p>
+          </div>
+          <div class="video-item">
+            <div class="video-wrapper">
+              <video src="vid/2.mp4" controls playsinline preload="metadata"></video>
+            </div>
+            <p class="video-caption">Дашенька, иди писи V1.0</p>
+          </div>
+          <div class="video-item">
+            <div class="video-wrapper">
+              <video src="vid/3.mp4" controls playsinline preload="metadata"></video>
+            </div>
+            <p class="video-caption">Дашенька, иди писи 🥺</p>
+          </div>
+        </div>
+        <div class="actions-row">
+          <button class="btn btn-primary btn-large" onclick="goToPage(5)">Продолжить</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== СТРАНИЦА 5: 2 ВОПРОС ==================== -->
+    <section class="page" data-page="5" id="page-5">
+      <div class="quiz-card glass-card wide-card">
+        <h2 class="page-heading">2 вопрос</h2>
+        <p class="question-text">Только одна из этих трёх аватарок была у Славы в инсте. Какая?</p>
+        <div class="options-grid three-cols">
+          <div class="option-card">
+            <div class="avatar-circle">
+              <img src="img/quest2_1.png" alt="Аватарка 1" />
+            </div>
+            <button class="btn btn-answer" onclick="handleAnswer(this, true, 6)">Эта</button>
+          </div>
+          <div class="option-card">
+            <div class="avatar-circle">
+              <img src="img/quest2_2.jpg" alt="Аватарка 2" />
+            </div>
+            <button class="btn btn-answer" onclick="handleAnswer(this, false, 6)">Эта</button>
+          </div>
+          <div class="option-card">
+            <div class="avatar-circle">
+              <img src="img/quest2_3.jpg" alt="Аватарка 3" />
+            </div>
+            <button class="btn btn-answer" onclick="handleAnswer(this, false, 6)">Эта</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== СТРАНИЦА 6: 3 ВОПРОС ==================== -->
+    <section class="page" data-page="6" id="page-6">
+      <div class="quiz-card glass-card wide-card">
+        <h2 class="page-heading">3 вопрос</h2>
+        <p class="question-text">Какой из этих пабликов, Славин паблик с постиронией, достигнувший отметки 1000+ подписчиков?</p>
+        <div class="options-grid three-cols">
+          <div class="option-card">
+            <div class="square-media">
+              <img src="img/quest3_1.png" alt="Паблик 1" />
+            </div>
+            <button class="btn btn-answer" onclick="handleAnswer(this, false, 7)">Этот</button>
+          </div>
+          <div class="option-card">
+            <div class="square-media">
+              <img src="img/quest3_2.png" alt="Паблик 2" />
+            </div>
+            <button class="btn btn-answer" onclick="handleAnswer(this, false, 7)">Этот</button>
+          </div>
+          <div class="option-card">
+            <div class="square-media">
+              <img src="img/quest3_3.png" alt="Паблик 3" />
+            </div>
+            <button class="btn btn-answer" onclick="handleAnswer(this, true, 7)">Этот</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== СТРАНИЦА 7: 4 ВОПРОС ==================== -->
+    <section class="page" data-page="7" id="page-7">
+      <div class="quiz-card glass-card wide-card">
+        <h2 class="page-heading">4 вопрос</h2>
+        <p class="question-text">Только на двух из этих фотографий изображен Слава. Кто же из них импостер?</p>
+        <div class="options-grid three-cols">
+          <div class="option-card">
+            <div class="square-media">
+              <img src="img/quest4_1.jpg" alt="Фото 1" />
+            </div>
+            <button class="btn btn-answer" onclick="handleAnswer(this, true, 8)">Он</button>
+          </div>
+          <div class="option-card">
+            <div class="square-media">
+              <img src="img/quest4_2.jpg" alt="Фото 2" />
+            </div>
+            <button class="btn btn-answer" onclick="handleAnswer(this, false, 8)">Он</button>
+          </div>
+          <div class="option-card">
+            <div class="square-media">
+              <img src="img/quest4_3.jpg" alt="Фото 3" />
+            </div>
+            <button class="btn btn-answer" onclick="handleAnswer(this, false, 8)">Он</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== СТРАНИЦА 8: 67 ==================== -->
+    <section class="page" data-page="8" id="page-8">
+      <div class="quiz-card glass-card wide-card">
+        <h2 class="page-heading">67</h2>
+        <p class="question-text">67</p>
+        <div class="options-grid three-cols">
+          <div class="option-card">
+            <div class="square-media">
+              <img src="img/quest5_1.jpg" alt="67 - 1" />
+            </div>
+            <button class="btn btn-answer" onclick="handleAnswer(this, true, 9)">67</button>
+          </div>
+          <div class="option-card">
+            <div class="square-media">
+              <img src="img/quest5_2.jpg" alt="67 - 2" />
+            </div>
+            <button class="btn btn-answer" onclick="handleAnswer(this, true, 9)">67</button>
+          </div>
+          <div class="option-card">
+            <div class="square-media">
+              <img src="img/quest5_3.jpg" alt="67 - 3" />
+            </div>
+            <button class="btn btn-answer" onclick="handleAnswer(this, true, 9)">67</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== СТРАНИЦА 9: 6 ВОПРОС (КАРУСЕЛЬ 1) ==================== -->
+    <section class="page" data-page="9" id="page-9">
+      <div class="quiz-card glass-card carousel-page-card">
+        <h2 class="page-heading">6 вопрос</h2>
+        <p class="question-text">
+          На всех этих фотографиях мы <strong><u>трезвые</u></strong>, и лишь на одной из них <strong><u>бухие</u></strong>. На какой?
+        </p>
+
+        <!-- Карусель 1 -->
+        <div class="carousel-widget" id="carousel-q6">
+          <div class="carousel-stage">
+            <button class="carousel-nav prev" type="button" onclick="changeSlide('q6', -1)" aria-label="Предыдущее фото">‹</button>
+            <div class="carousel-viewport">
+              <div class="carousel-counter" id="counter-q6">Фото 1 из 7</div>
+              <div class="carousel-slides" id="slides-q6">
+                <div class="carousel-slide active"><img src="img/quest6_1.jpeg" alt="Фото 1" /></div>
+                <div class="carousel-slide"><img src="img/quest6_2.png" alt="Фото 2" /></div>
+                <div class="carousel-slide"><img src="img/quest6_3.jpeg" alt="Фото 3" /></div>
+                <div class="carousel-slide"><img src="img/quest6_4.jpg" alt="Фото 4" /></div>
+                <div class="carousel-slide"><img src="img/quest6_5.jpeg" alt="Фото 5" /></div>
+                <div class="carousel-slide"><img src="img/quest6_6.jpeg" alt="Фото 6" /></div>
+                <div class="carousel-slide"><img src="img/quest6_7.jpeg" alt="Фото 7" /></div>
+              </div>
+            </div>
+            <button class="carousel-nav next" type="button" onclick="changeSlide('q6', 1)" aria-label="Следующее фото">›</button>
+          </div>
+
+          <!-- Индикаторы-точки с номерами -->
+          <div class="carousel-dots" id="dots-q6">
+            <button type="button" class="dot active" onclick="setSlide('q6', 1)">1</button>
+            <button type="button" class="dot" onclick="setSlide('q6', 2)">2</button>
+            <button type="button" class="dot" onclick="setSlide('q6', 3)">3</button>
+            <button type="button" class="dot" onclick="setSlide('q6', 4)">4</button>
+            <button type="button" class="dot" onclick="setSlide('q6', 5)">5</button>
+            <button type="button" class="dot" onclick="setSlide('q6', 6)">6</button>
+            <button type="button" class="dot" onclick="setSlide('q6', 7)">7</button>
+          </div>
+
+          <!-- Панель выбора номера фотографии (1-7) с кнопками вверх/вниз + кнопка ответа -->
+          <div class="picker-panel">
+            <div class="number-stepper-group">
+              <span class="stepper-label">Номер фото:</span>
+              <div class="number-stepper">
+                <input
+                  type="number"
+                  id="input-q6"
+                  class="stepper-input"
+                  min="1"
+                  max="7"
+                  value="1"
+                  onchange="onInputNumberChange('q6', this.value)"
+                />
+                <div class="stepper-arrows">
+                  <button type="button" class="step-btn up" onclick="stepNumber('q6', 1)" title="Увеличить">▲</button>
+                  <button type="button" class="step-btn down" onclick="stepNumber('q6', -1)" title="Уменьшить">▼</button>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-answer btn-submit-carousel" id="submit-q6" onclick="submitCarouselAnswer('q6', this, 2, 10)">
+              Выбрать фото №1
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== СТРАНИЦА 10: 7 ВОПРОС (КАРУСЕЛЬ 2) ==================== -->
+    <section class="page" data-page="10" id="page-10">
+      <div class="quiz-card glass-card carousel-page-card">
+        <h2 class="page-heading">7 вопрос</h2>
+        <p class="question-text">
+          А теперь наоборот - на всех этих фотографиях мы <strong><u>бухие</u></strong>, и лишь на одной из них <strong><u>трезвые</u></strong>. На какой?
+        </p>
+
+        <!-- Карусель 2 -->
+        <div class="carousel-widget" id="carousel-q7">
+          <div class="carousel-stage">
+            <button class="carousel-nav prev" type="button" onclick="changeSlide('q7', -1)" aria-label="Предыдущее фото">‹</button>
+            <div class="carousel-viewport">
+              <div class="carousel-counter" id="counter-q7">Фото 1 из 7</div>
+              <div class="carousel-slides" id="slides-q7">
+                <div class="carousel-slide active"><img src="img/quest7_1.jpeg" alt="Фото 1" /></div>
+                <div class="carousel-slide"><img src="img/quest7_2.jpg" alt="Фото 2" /></div>
+                <div class="carousel-slide"><img src="img/quest7_3.jpg" alt="Фото 3" /></div>
+                <div class="carousel-slide"><img src="img/quest7_4.jpeg" alt="Фото 4" /></div>
+                <div class="carousel-slide"><img src="img/quest7_5.jpeg" alt="Фото 5" /></div>
+                <div class="carousel-slide"><img src="img/quest7_6.jpg" alt="Фото 6" /></div>
+                <div class="carousel-slide"><img src="img/quest7_7.jpg" alt="Фото 7" /></div>
+              </div>
+            </div>
+            <button class="carousel-nav next" type="button" onclick="changeSlide('q7', 1)" aria-label="Следующее фото">›</button>
+          </div>
+
+          <!-- Индикаторы-точки с номерами -->
+          <div class="carousel-dots" id="dots-q7">
+            <button type="button" class="dot active" onclick="setSlide('q7', 1)">1</button>
+            <button type="button" class="dot" onclick="setSlide('q7', 2)">2</button>
+            <button type="button" class="dot" onclick="setSlide('q7', 3)">3</button>
+            <button type="button" class="dot" onclick="setSlide('q7', 4)">4</button>
+            <button type="button" class="dot" onclick="setSlide('q7', 5)">5</button>
+            <button type="button" class="dot" onclick="setSlide('q7', 6)">6</button>
+            <button type="button" class="dot" onclick="setSlide('q7', 7)">7</button>
+          </div>
+
+          <!-- Панель выбора номера фотографии (1-7) с кнопками вверх/вниз + кнопка ответа -->
+          <div class="picker-panel">
+            <div class="number-stepper-group">
+              <span class="stepper-label">Номер фото:</span>
+              <div class="number-stepper">
+                <input
+                  type="number"
+                  id="input-q7"
+                  class="stepper-input"
+                  min="1"
+                  max="7"
+                  value="1"
+                  onchange="onInputNumberChange('q7', this.value)"
+                />
+                <div class="stepper-arrows">
+                  <button type="button" class="step-btn up" onclick="stepNumber('q7', 1)" title="Увеличить">▲</button>
+                  <button type="button" class="step-btn down" onclick="stepNumber('q7', -1)" title="Уменьшить">▼</button>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-answer btn-submit-carousel" id="submit-q7" onclick="submitCarouselAnswer('q7', this, 4, 11)">
+              Выбрать фото №1
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== СТРАНИЦА 11: ПОБЕДА И ПЕРВЫЙ ПРИЗ ==================== -->
+    <section class="page" data-page="11" id="page-11">
+      <div class="quiz-card glass-card prize-card">
+        <h2 class="page-heading victory-heading">Победа!</h2>
+        <p class="subtitle-text">Твой заслуженный приз:</p>
+
+        <!-- Спойлер в стиле Telegram -->
+        <div class="tg-spoiler" id="spoiler-1" onclick="revealSpoiler('spoiler-1')">
+          <img src="img/prize1.JPG" alt="Твой заслуженный приз" class="spoiler-img" />
+          <canvas class="spoiler-canvas"></canvas>
+          <div class="spoiler-badge">
+            <span class="spoiler-sparkle">✨</span>
+            <span>Нажми, чтобы открыть спойлер</span>
+          </div>
+        </div>
+
+        <p class="after-prize-label">Нажми после получения подарка:</p>
+        <div class="actions-row">
+          <button class="btn btn-primary btn-large" onclick="goToPage(12)">сиксевен</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== СТРАНИЦА 12: ОЙ, А ЭТО НЕ ВСЁ ==================== -->
+    <section class="page" data-page="12" id="page-12">
+      <div class="quiz-card glass-card prize-card">
+        <h2 class="page-heading">Ой, а это не всё</h2>
+        <div class="media-frame hint-media">
+          <img src="img/prizeHint.png" alt="Подсказка" />
+        </div>
+        <p class="after-prize-label">Нажми после победы:</p>
+        <div class="actions-row">
+          <button class="btn btn-primary btn-large" onclick="goToPage(13)">Респект!</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== СТРАНИЦА 13: ФИНАЛЬНЫЙ ПРИЗ ==================== -->
+    <section class="page" data-page="13" id="page-13">
+      <div class="quiz-card glass-card final-prize-card">
+        <!-- Спойлер в стиле Telegram -->
+        <div class="tg-spoiler final-spoiler" id="spoiler-2" onclick="revealSpoiler('spoiler-2')">
+          <img src="img/prize2.JPG" alt="Финальный приз" class="spoiler-img" />
+          <canvas class="spoiler-canvas"></canvas>
+          <div class="spoiler-badge">
+            <span class="spoiler-sparkle">✨</span>
+            <span>Нажми, чтобы открыть спойлер</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Навигационные маленькие стрелочки внизу по углам -->
+  <button
+    id="nav-back-btn"
+    class="corner-nav-btn left hidden"
+    type="button"
+    onclick="goBack()"
+    title="На предыдущую страницу"
+    aria-label="Назад"
+  >
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+  </button>
+
+  <button
+    id="nav-restart-btn"
+    class="corner-nav-btn right hidden"
+    type="button"
+    onclick="goToPage(1)"
+    title="Вернуться на первую страницу"
+    aria-label="На первую страницу"
+  >
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>
